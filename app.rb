@@ -59,7 +59,6 @@ delete('/recipes/:id') do
   erb(:recipes)
 end
 
-
 get('/ingredients/new') do
   erb(:ingredient_form)
 end
@@ -72,6 +71,26 @@ end
 post('/ingredients') do
   name = params.fetch("name")
   ingredient = Ingredient.create({:name => name})
+  @ingredients = Ingredient.all()
+  erb(:ingredients)
+end
+
+get('/ingredients/:id')do
+  @ingredient = Ingredient.find(params.fetch("id").to_i)
+  erb(:ingredient)
+end
+
+patch('/ingredients/:id') do
+  name = params.fetch("name")
+  @ingredient = Ingredient.find(params.fetch("id").to_i)
+  @ingredient.update({:name => name})
+  @ingredients = Ingredient.all()
+  erb(:ingredients)
+end
+
+delete('/ingredients/:id') do
+  @ingredient = Ingredient.find(params.fetch("id").to_i)
+  @ingredient.delete()
   @ingredients = Ingredient.all()
   erb(:ingredients)
 end
