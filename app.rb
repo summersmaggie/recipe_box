@@ -94,3 +94,39 @@ delete('/ingredients/:id') do
   @ingredients = Ingredient.all()
   erb(:ingredients)
 end
+
+get('/tags/new') do
+  erb(:tag_form)
+end
+
+post('/tags') do
+  category = params.fetch("category")
+  tag = Tag.create({:category => category})
+  @tags = Tag.all
+  erb(:tags)
+end
+
+get('/tags/:id')do
+  @tag = Tag.find(params.fetch("id").to_i)
+  erb(:tag)
+end
+
+patch('/tags/:id') do
+  category = params.fetch("category")
+  @tag = Tag.find(params.fetch("id").to_i)
+  @tag.update({:category => category})
+  @tags = Tag.all()
+  erb(:tags)
+end
+
+delete('/tags/:id') do
+  @tag = Tag.find(params.fetch("id").to_i)
+  @tag.delete()
+  @tags = Tag.all()
+  erb(:tags)
+end
+
+get('/tags') do
+  @tags = Tag.all
+  erb(:tags)
+end

@@ -1,0 +1,13 @@
+<h2>See Your Categories!</h2>
+
+<% if @tags.any? %>
+
+<ul>
+  <% @tags.each do |tag| %>
+  <li><a href="/tags/<%= tag.id() %>"><%= tag.category() %></a></li>
+  <% end %>
+</ul>
+
+<% else %>
+  <p>There are no categories yet!</p>
+<% end %>
