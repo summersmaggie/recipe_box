@@ -14,11 +14,13 @@
 
 <h4>Add new ingredients to this recipe:</h4>
 
-<form action="/recipes/<%= @recipe.id() %>" method="post" id="usrform">
+<form action="/recipes/<%= @recipe.id() %>" method="post">
   <div class="form-group">
-    <label class="form-label" for='name'>Ingredient Name:</label>
-    <input class="form-control" id='name' name='name' type='text'>
-    </br>
-    <button type="submit" class="button btn-success">Add Ingredient!</button>
+    <select name="ingredient_id">
+      <% @available_ingredients.each do |ingredient| %>
+        <option value="<%= ingredient.id %>"><%= ingredient.name %></option>
+      <% end %>
+    </select>
   </div>
+  <button type="submit" class="button btn-success">Add ingredient to recipe!</button>
 </form>

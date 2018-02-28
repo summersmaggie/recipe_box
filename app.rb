@@ -1,4 +1,5 @@
 require("bundler/setup")
+require('pry')
 Bundler.require(:default)
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
@@ -26,7 +27,7 @@ end
 
 get('/recipes/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i())
-  @recipe.ingredients
+  @available_ingredients = Ingredient.all() - @recipe.ingredients
   erb(:recipe)
 end
 
@@ -34,7 +35,7 @@ post('/recipes/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i())
   found_ingredient = Ingredient.find(params.fetch("ingredient_id"))
   @recipe.ingredients.push(found_ingredient)
-  @recipe.ingredients
+  @available_ingredients = Ingredients.all() - @recipe.ingredients
   erb(:recipe)
 end
 
