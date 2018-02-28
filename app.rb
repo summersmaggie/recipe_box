@@ -35,9 +35,30 @@ post('/recipes/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i())
   found_ingredient = Ingredient.find(params.fetch("ingredient_id"))
   @recipe.ingredients.push(found_ingredient)
-  @available_ingredients = Ingredients.all() - @recipe.ingredients
+  @available_ingredients = Ingredient.all() - @recipe.ingredients
   erb(:recipe)
 end
+
+get('/recipes/:id/edit') do
+  @recipe = Recipe.find(params.fetch("id").to_i)
+  erb(:edit_recipe)
+end
+
+patch('/recipes/:id') do
+  title = params.fetch("title")
+  @recipe = Recipe.find(params.fetch("id").to_i)
+  @recipe.update({:title => title})
+  @available_ingredients = Ingredient.all() - @recipe.ingredients
+  erb(:recipe)
+end
+
+delete('/recipes/:id') do
+  @recipe = Recipe.find(params.fetch("id").to_i)
+  @recipe.delete()
+  @recipes = Recipe.all()
+  erb(:recipes)
+end
+
 
 get('/ingredients/new') do
   erb(:ingredient_form)

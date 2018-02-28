@@ -12,6 +12,8 @@
   <p>There are no ingredients yet!</p>
 <% end %>
 
+<p><a href="/recipes/<%= @recipe.id() %>/edit">Edit Recipe</a></p>
+
 <h4>Add new ingredients to this recipe:</h4>
 
 <form action="/recipes/<%= @recipe.id() %>" method="post">
