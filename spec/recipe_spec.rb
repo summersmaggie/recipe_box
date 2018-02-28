@@ -1,6 +1,5 @@
-# describe(Recipe) do
-#   it("validates presence of instructions and title") do
-#     recipe = Recipe.new({:title => "pie", :instructions => "preheat oven"})
-#     expect(recipe.create()).to(eq(true))
-#   end
-# end
+require('spec_helper')
+
+describe(Recipe) do
+  it { should have_and_belong_to_many(:ingredients) }
+end
