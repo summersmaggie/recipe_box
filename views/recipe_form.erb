@@ -1,0 +1,14 @@
+<h2>Add a recipe!</h2>
+
+<form action="/recipes" method="post" id="usrform">
+  <div class="form-group">
+    <label class="form-label" for='title'>Recipe Name:</label>
+    <input class="form-control" id='title' name='title' type='text'>
+    </br>
+    <label class="form-label" for='instructions'>Instructions:</label>
+    <br>
+    <textarea rows="4" cols="50" name="instructions" form="usrform" placeholder="Enter instructions here..."></textarea>
+    <br>
+    <button type="submit" class="button btn-success">Create Recipe!</button>
+  </div>
+</form>

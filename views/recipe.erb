@@ -1,0 +1,24 @@
+<h2>Recipe: <%= @recipe.title %></h2>
+
+<h4>Current ingredients in this recipe:</h4>
+
+<% if @recipe.ingredients.any? %>
+  <ul>
+    <% @recipe.ingredients.each do |ingredients| %>
+      <li><%= ingredients.name %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no ingredients yet!</p>
+<% end %>
+
+<h4>Add new ingredients to this recipe:</h4>
+
+<form action="/recipes/<%= @recipe.id() %>" method="post" id="usrform">
+  <div class="form-group">
+    <label class="form-label" for='name'>Ingredient Name:</label>
+    <input class="form-control" id='name' name='name' type='text'>
+    </br>
+    <button type="submit" class="button btn-success">Add Ingredient!</button>
+  </div>
+</form>
