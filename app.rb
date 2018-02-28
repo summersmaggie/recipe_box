@@ -37,3 +37,19 @@ post('/recipes/:id') do
   @recipe.ingredients
   erb(:recipe)
 end
+
+get('/ingredients/new') do
+  erb(:ingredient_form)
+end
+
+get('/ingredients') do
+  @ingredients = Ingredient.all()
+  erb(:ingredients)
+end
+
+post('/ingredients') do
+  name = params.fetch("name")
+  ingredient = Ingredient.create({:name => name})
+  @ingredients = Ingredient.all()
+  erb(:ingredients)
+end

@@ -1,0 +1,13 @@
+<h2>Check out all your ingredients:</h2>
+
+<% if @ingredients.any?() %>
+
+  <ul>
+    <% @ingredients.each do |ingredient| %>
+    <li><%= ingredient.name() %></a></li>
+    <% end %>
+  </ul>
+
+  <% else %>
+    <p>There are no ingredients yet!</p>
+  <% end %>
