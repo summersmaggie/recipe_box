@@ -1,5 +1,7 @@
 <h2>Recipe: <%= @recipe.title %></h2>
-<h3>Instructions: <%= @recipe.instructions %></h3>
+
+<h4>Instructions:</h4>
+<ul><li><%= @recipe.instructions %></li></ul>
 
 <h4>Current ingredients in this recipe:</h4>
 
@@ -13,19 +15,19 @@
   <p>There are no ingredients yet!</p>
 <% end %>
 
-<p><a href="/recipes/<%= @recipe.id() %>/edit">Edit Recipe</a></p>
+<h4>This recipe's categories:</h4>
 
-<h4>Add new ingredients to this recipe:</h4>
+<% if @recipe.tags.any? %>
+  <ul>
+    <% @recipe.tags.each do |tags| %>
+      <li><%= tags.category %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>There are no categories yet!</p>
+<% end %>
 
-<form action="/recipes/<%= @recipe.id() %>/ingredients" method="post">
-  <div class="form-group">
-    <select name="ingredient_id">
-      <% @available_ingredients.each do |ingredient| %>
-        <option value="<%= ingredient.id %>"><%= ingredient.name %></option>
-      <% end %>
-    </select>
-  </div>
-  <button type="submit" class="button btn-success">Add ingredient to recipe!</button>
-</form>
 
-<h4><a href="/recipes/<%= @recipe.id() %>/tags">Add this recipe to a category</a></h4>
+<button><h4><a href="/recipes/<%= @recipe.id() %>/ingredients">Add ingredients to this recipe</a></h4></button>
+<br><br>
+<button><h4><a href="/recipes/<%= @recipe.id() %>/tags">Add this recipe to a category</a></h4></button>
