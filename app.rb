@@ -109,8 +109,8 @@ end
 
 get('/ingredients/:id')do
   @ingredient = Ingredient.find(params.fetch("id").to_i)
-  @recipe = Recipe.al
-  erb(:ingredient)
+  @recipe = Recipe.all()
+  erb(:edit_ingredient)
 end
 
 patch('/ingredients/:id') do

@@ -1,33 +1,37 @@
-<h2>Recipe: <%= @recipe.title %></h2>
+<div class="container" id="recipe">
+  <h2>Recipe: <%= @recipe.title %></h2>
 
-<h4>Instructions:</h4>
-<ul><li><%= @recipe.instructions %></li></ul>
+  <h4>Instructions:</h4>
+  <ul><li><%= @recipe.instructions %></li></ul>
 
-<h4>Current ingredients in this recipe:</h4>
+  <h4>Current ingredients in this recipe:</h4>
 
-<% if @recipe.ingredients.any? %>
-  <ul>
-    <% @recipe.ingredients.each do |ingredients| %>
-      <li><%= ingredients.name %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>There are no ingredients yet!</p>
-<% end %>
+  <% if @recipe.ingredients.any? %>
+    <ul>
+      <% @recipe.ingredients.each do |ingredients| %>
+        <li><%= ingredients.name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p><em>There are no ingredients yet!</em></p>
+  <% end %>
 
-<h4>This recipe's categories:</h4>
+  <h4>This recipe's categories:</h4>
 
-<% if @recipe.tags.any? %>
-  <ul>
-    <% @recipe.tags.each do |tags| %>
-      <li><%= tags.category %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>There are no categories yet!</p>
-<% end %>
+  <% if @recipe.tags.any? %>
+    <ul>
+      <% @recipe.tags.each do |tags| %>
+        <li><%= tags.category %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p><em>There are no categories yet!</em></p>
+  <% end %>
 
+  <br>
+  <br>
 
-<button><h4><a href="/recipes/<%= @recipe.id() %>/ingredients">Add ingredients to this recipe</a></h4></button>
-<br><br>
-<button><h4><a href="/recipes/<%= @recipe.id() %>/tags">Add this recipe to a category</a></h4></button>
+  <button type="button" class="btn btn-outline-info"><a href="/recipes/<%= @recipe.id() %>/ingredients">Add ingredients to this recipe</a></button>
+  <br><br>
+  <button type="button" class="btn btn-outline-info"><a href="/recipes/<%= @recipe.id() %>/tags">Add a category to this recipe</a></button>
+</div>
