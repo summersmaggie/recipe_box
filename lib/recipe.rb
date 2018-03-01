@@ -7,12 +7,14 @@ class Recipe < ActiveRecord::Base
   before_save(:downcase_instructions)
 
 
-private
+# private #specs not working when methods are private
 
   def titlecase_title
     self.title=(title().titlecase())
   end
+
   def downcase_instructions
     self.instructions=(instructions().downcase())
   end
+
 end
