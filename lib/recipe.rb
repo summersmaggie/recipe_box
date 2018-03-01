@@ -4,11 +4,15 @@ class Recipe < ActiveRecord::Base
   validates(:title, {:presence => true})
   validates(:instructions, {:presence => true})
   before_save(:titlecase_title)
+  before_save(:downcase_instructions)
 
 
 private
 
   def titlecase_title
     self.title=(title().titlecase())
+  end
+  def downcase_instructions
+    self.instructions=(instructions().downcase())
   end
 end
