@@ -28,15 +28,4 @@
   <button type="submit" class="button btn-success">Add ingredient to recipe!</button>
 </form>
 
-<h4>Add this category to a recipe:</h4>
-
-<form action="/recipes/<%= @recipe.id() %>/tags" method="post">
-  <div class="form-group">
-    <select name="tag_id">
-      <% @tags.each do |tag| %>
-        <option value="<%= tag.id %>"><%= tag.category %></option>
-      <% end %>
-    </select>
-  </div>
-  <button type="submit" class="button btn-success">Add this category to a recipe!</button>
-</form>
+<h4><a href="/recipes/<%= @recipe.id() %>/tags">Add this recipe to a category</a></h4>
