@@ -4,6 +4,7 @@ Bundler.require(:default)
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 
+##recipe
 get('/') do
   erb(:home)
 end
@@ -21,9 +22,8 @@ post('/recipes') do
   title = params.fetch("title")
   instructions = params.fetch("instructions")
   @recipe = Recipe.new({:title => title, :instructions => instructions})
-  @recipes = Recipe.all()
   if @recipe.save()
-    erb(:recipes)
+    redirect("/recipes")
   else
     erb(:errors)
   end
@@ -36,22 +36,6 @@ get('/recipes/:id') do
   erb(:recipe)
 end
 
-get('/recipes/:id/tags') do
-  @recipe = Recipe.find(params.fetch("id").to_i())
-  @available_tags = Tag.all() - @recipe.tags
-  @tags = Tag.all()
-  erb(:tag)
-end
-
-post('/recipes/:id/tags') do
-  @recipe = Recipe.find(params.fetch("id").to_i())
-  found_tag = Tag.find(params.fetch("tag_id").to_i)
-  @recipe.tags.push(found_tag)
-  @available_tags = Tag.all() - @recipe.tags
-  @recipes = Recipe.all()
-  erb(:tag)
-end #add category button
-
 get('/recipes/:id/edit') do
   @recipe = Recipe.find(params.fetch("id").to_i)
   erb(:edit_recipe)
@@ -62,16 +46,16 @@ patch('/recipes/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i)
   @recipe.update({:title => title})
   @available_ingredients = Ingredient.all() - @recipe.ingredients
-  erb(:recipe)
+  redirect('/recipes')
 end
 
 delete('/recipes/:id') do
   @recipe = Recipe.find(params.fetch("id").to_i)
   @recipe.delete()
-  @recipes = Recipe.all()
-  erb(:recipes)
+  redirect("/recipes")
 end
 
+##ingredients
 get('/ingredients/new') do
   erb(:ingredient_form)
 end
@@ -99,9 +83,8 @@ end #add ingredient button
 post('/ingredients') do
   name = params.fetch("name")
   @ingredient = Ingredient.create({:name => name})
-  @ingredients = Ingredient.all()
   if @ingredient.save()
-    erb(:ingredients)
+    redirect('/ingredients')
   else
     erb(:errors)
   end
@@ -109,7 +92,6 @@ end
 
 get('/ingredients/:id')do
   @ingredient = Ingredient.find(params.fetch("id").to_i)
-  @recipe = Recipe.all()
   erb(:edit_ingredient)
 end
 
@@ -117,27 +99,30 @@ patch('/ingredients/:id') do
   name = params.fetch("name")
   @ingredient = Ingredient.find(params.fetch("id").to_i)
   @ingredient.update({:name => name})
-  @ingredients = Ingredient.all()
-  erb(:ingredients)
+  redirect('/ingredients')
 end
 
 delete('/ingredients/:id') do
   @ingredient = Ingredient.find(params.fetch("id").to_i)
   @ingredient.delete()
-  @ingredients = Ingredient.all()
-  erb(:ingredients)
+  redirect('/ingredients')
 end
 
+##tags
 get('/tags/new') do
   erb(:tag_form)
+end
+
+get('/tags') do
+ @tags = Tag.all
+ erb(:tags)
 end
 
 post('/tags') do
   category = params.fetch("category")
   @tag = Tag.create({:category => category})
-  @tags = Tag.all
   if @tag.save()
-    erb(:tags)
+    redirect("/tags")
   else
     erb(:errors)
   end
@@ -148,22 +133,31 @@ get('/tags/:id')do
   erb(:edit_tag)
 end
 
+get('/recipes/:id/tags') do
+  @recipe = Recipe.find(params.fetch("id").to_i())
+  @available_tags = Tag.all() - @recipe.tags
+  @tags = Tag.all()
+  erb(:tag)
+end
+
+post('/recipes/:id/tags') do
+  @recipe = Recipe.find(params.fetch("id").to_i())
+  found_tag = Tag.find(params.fetch("tag_id").to_i)
+  @recipe.tags.push(found_tag)
+  @available_tags = Tag.all() - @recipe.tags
+  @recipes = Recipe.all()
+  erb(:tag)
+end
+
 patch('/tags/:id') do
   category = params.fetch("category")
   @tag = Tag.find(params.fetch("id").to_i)
   @tag.update({:category => category})
-  @tags = Tag.all()
-  erb(:tags)
+  redirect("/tags")
 end
 
 delete('/tags/:id') do
   @tag = Tag.find(params.fetch("id").to_i)
   @tag.delete()
-  @tags = Tag.all()
-  erb(:tags)
-end
-
-get('/tags') do
-  @tags = Tag.all
-  erb(:tags)
+  redirect("/tags")
 end
