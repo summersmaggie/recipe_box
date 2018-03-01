@@ -1,21 +1,19 @@
-<h2>Recipe: <%= @ingredient.name %></h2>
-
-
 <h1>Update <%= @ingredient.name() %> Name</h1>
 
 <form action="/ingredients/<%= @ingredient.id() %>" method="post">
   <input name="_method" type="hidden" value="patch">
 
-    <label for="name">Rename your ingredient:</label>
-    <input id="name" name="name" type="text">
-
+    <label class="form-label" for="name">Rename your ingredient:</label>
+    <br>
+    <input class="form-group" id="name" name="name" type="text">
+    <br>
     <button type="submit" class="button btn-success">Update Ingredient</button>
 </form>
-
+<br>
 <form action="/ingredients/<%= @ingredient.id() %>" method="post">
   <input name="_method" type="hidden" value="delete">
 
   <button type="submit" class="button btn-danger">Delete Ingredient</button>
 </form>
-
+<br>
 <a href="/ingredients">Back to ingredients</a>
