@@ -38,6 +38,7 @@ end
 
 get('/recipes/:id/tags') do
   @recipe = Recipe.find(params.fetch("id").to_i())
+  @available_tags = Tag.all() - @recipe.tags
   @tags = Tag.all()
   erb(:tag)
 end
@@ -46,7 +47,7 @@ post('/recipes/:id/tags') do
   @recipe = Recipe.find(params.fetch("id").to_i())
   found_tag = Tag.find(params.fetch("tag_id").to_i)
   @recipe.tags.push(found_tag)
-  @tags = Tag.all()
+  @available_tags = Tag.all() - @recipe.tags
   @recipes = Recipe.all()
   erb(:tag)
 end #add category button
@@ -92,7 +93,6 @@ post('/recipes/:id/ingredients') do
   found_ingredient = Ingredient.find(params.fetch("ingredient_id").to_i)
   @recipe.ingredients.push(found_ingredient)
   @available_ingredients = Ingredient.all() - @recipe.ingredients
-  @tags = Tag.all()
   erb(:ingredient)
 end #add ingredient button
 

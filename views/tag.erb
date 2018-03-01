@@ -3,7 +3,7 @@
 <form action="/recipes/<%= @recipe.id() %>/tags" method="post">
   <div class="form-group">
     <select name="tag_id">
-      <% @tags.each do |tag| %>
+      <% @available_tags.each do |tag| %>
         <option value="<%= tag.id %>"><%= tag.category %></option>
       <% end %>
     </select>
