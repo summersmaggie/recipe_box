@@ -36,7 +36,6 @@ get('/recipes/:id') do
   erb(:recipe)
 end
 
-
 post('/recipes/:id/ingredients') do
   @recipe = Recipe.find(params.fetch("id").to_i())
   found_ingredient = Ingredient.find(params.fetch("ingredient_id").to_i)
@@ -86,9 +85,13 @@ end
 
 post('/ingredients') do
   name = params.fetch("name")
-  ingredient = Ingredient.create({:name => name})
+  @ingredient = Ingredient.create({:name => name})
   @ingredients = Ingredient.all()
-  erb(:ingredients)
+  if @ingredient.save()
+    erb(:ingredients)
+  else
+    erb(:errors)
+  end
 end
 
 get('/ingredients/:id')do
@@ -117,9 +120,13 @@ end
 
 post('/tags') do
   category = params.fetch("category")
-  tag = Tag.create({:category => category})
+  @tag = Tag.create({:category => category})
   @tags = Tag.all
-  erb(:tags)
+  if @tag.save()
+    erb(:tags)
+  else
+    erb(:errors)
+  end
 end
 
 get('/tags/:id')do
