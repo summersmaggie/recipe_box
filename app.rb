@@ -20,9 +20,13 @@ end
 post('/recipes') do
   title = params.fetch("title")
   instructions = params.fetch("instructions")
-  recipe = Recipe.create({:title => title, :instructions => instructions})
+  @recipe = Recipe.new({:title => title, :instructions => instructions})
   @recipes = Recipe.all()
-  erb(:recipes)
+  if @recipe.save()
+    erb(:recipes)
+  else
+    erb(:errors)
+  end
 end
 
 get('/recipes/:id') do
